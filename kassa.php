@@ -28,7 +28,9 @@
 
 <div class="block left">
     <div class="block-header">
-        <div class="block-header-account center"><i class="fas fa-user-circle"></i></div>
+        <div class="block-header-account center" <?= $_SESSION["user"]["role"] == "admin" ? "onclick='location.href=\"voorraad.php\";'" : "onclick='location.href=\"logout.php\";'" ?>>
+            <?= $_SESSION["user"]["role"] == "admin" ? "<i class='fas fa-home'></i>" : "<i class='fas fa-user-circle'></i>" ?>
+        </div>
         <div class="block-header-text center">Kassa</div>
     </div>
 
@@ -100,7 +102,7 @@
                 </div>
                 <div class="price">
                     Prijs exclusief BTW<br>
-                    <span class="big"><?= number_format($price / 1.21, 2) ?></span>
+                    <span class="big"><?= number_format($price / 100 * 79, 2) ?></span>
                 </div>
             </div>
         </div>

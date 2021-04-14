@@ -15,7 +15,7 @@
     if(isset($_POST["remove"])) {
         $user_id = $_POST["remove"];
         $sql = "DELETE FROM users WHERE id='$user_id'";
-        $result = mysqli_query($conn, $sql);
+        mysqli_query($conn, $sql);
         
         header("Location: team.php");
     } elseif(isset($_POST["createAccount"])) {
@@ -26,7 +26,14 @@
         if(empty($username) || empty($name) || empty($password) || empty($role)) {
             $message = "Vul alle velden in.";
         } else {
-
+            $sql = "SELECT * FROM users WHERE username='$username'";
+            $result = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result) > 0) {
+                $message = "Er is al een gebruiker met die gebruikersnaam!";
+            } else {
+                $sql = "INSERT INTO users (username, name, password, role) VALUES ('$username', '$name', '$password', '$role')";
+                mysqli_query($conn, $sql);
+            }
         }
     }
 
@@ -36,13 +43,21 @@
 
 <div class="beheer-main">
     <div class="beheer-sidebar">
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="location.href = 'logout.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-user-circle"></i></div>
-            <div class="sidebar-item-text">Account</div>
+            <div class="sidebar-item-text">Uitloggen</div>
         </div>
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="location.href = 'voorraad.php';">
+            <div class="sidebar-item-icon center"><i class="fas fa-cubes"></i></div>
+            <div class="sidebar-item-text">Voorraad</div>
+        </div>
+        <div class="sidebar-item" onclick="location.href = 'team.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-users"></i></div>
-            <div class="sidebar-item-text">Teambeheer</div>
+            <div class="sidebar-item-text">Team</div>
+        </div>
+        <div class="sidebar-item" onclick="location.href = 'kassa.php';">
+            <div class="sidebar-item-icon center"><i class="fas fa-cash-register"></i></div>
+            <div class="sidebar-item-text">Kassa</div>
         </div>
     </div>
     <div class="beheer-content">
@@ -97,11 +112,15 @@
                 </div>
             ";
         }
-
-        if(!empty($message)) {
-            echo "<script>alert('" . $message . "');</script>";
-        }
     ?>
 </div>
 
-<?php include "includes/footer.inc.php"; ?>
+<?php 
+
+    if(!empty($message)) {
+        echo "<script>alert('" . $message . "');</script>";
+    }
+
+    include "includes/footer.inc.php"; 
+
+?>

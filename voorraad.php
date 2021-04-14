@@ -41,13 +41,21 @@
 
 <div class="beheer-main">
     <div class="beheer-sidebar">
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="location.href = 'logout.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-user-circle"></i></div>
-            <div class="sidebar-item-text">Account</div>
+            <div class="sidebar-item-text">Uitloggen</div>
         </div>
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="location.href = 'voorraad.php';">
+            <div class="sidebar-item-icon center"><i class="fas fa-cubes"></i></div>
+            <div class="sidebar-item-text">Voorraad</div>
+        </div>
+        <div class="sidebar-item" onclick="location.href = 'team.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-users"></i></div>
-            <div class="sidebar-item-text">Teambeheer</div>
+            <div class="sidebar-item-text">Team</div>
+        </div>
+        <div class="sidebar-item" onclick="location.href = 'kassa.php';">
+            <div class="sidebar-item-icon center"><i class="fas fa-cash-register"></i></div>
+            <div class="sidebar-item-text">Kassa</div>
         </div>
     </div>
     <div class="beheer-content">
