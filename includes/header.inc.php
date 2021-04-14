@@ -2,6 +2,8 @@
 
     session_start();
 
+    include "includes/conn.inc.php";
+
 ?>
 
 <html>

@@ -89,7 +89,7 @@ body {
     box-sizing: border-box;
 }
 
-.product {
+.product, .lid {
     width: 100%;
     padding: 10px;
     border: 1px solid grey;
@@ -140,7 +140,7 @@ body {
     font-weight: bold;
 }
 
-input {
+input, select {
     width: 100%;
     height: 10%;
     background: white;
@@ -213,4 +213,203 @@ input[type="submit"] {
 
 h2 {
     font-size: 30px;
+}
+
+.message {
+    padding: 20px;
+    text-align: center;
+}
+
+.red {
+    background-color: rgb(241, 85, 85);
+}
+
+.bon {
+    width: 80%;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.bon-product {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bon-next {
+    background-color: #404040;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    margin-top: 30px;
+}
+
+.beheer-header {
+    background-color: #303030;
+    color: white;
+    height: 80px;
+}
+
+.beheer-main {
+    width: 100%;
+    height: calc(100% - 80px);
+}
+
+.beheer-sidebar {
+    width: 140px;
+    height: 100%;
+    background-color: #404040;
+    float: left;
+}
+
+.beheer-content {
+    width: calc(100% - 140px);
+    height: 100%;
+    margin-left: 140px;
+}
+
+.sidebar-item {
+    width: 100%;
+}
+
+.sidebar-item-icon {
+    width: 140px;
+    height: 140px;
+    color: white;
+}
+
+.sidebar-item-icon i {
+    font-size: 50px;
+}
+
+.sidebar-item-text {
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.filter {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgb(224, 224, 224);
+}
+
+.filter form, .popup form {
+    margin: 0;
+}
+
+.filter form input, .filter form select, .popup form input {
+    height: 40px;
+    width: initial;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.filter form input {
+    float: right;
+}
+
+.filter form select {
+    margin-left: 30px;
+}
+
+.voorraad, .team {
+    width: 100%;
+    height: calc(100% - 260px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.import {
+    width: 100%;
+    height: 200px;
+    border-top: 1px solid grey;
+    box-sizing: border-box;
+}
+
+table, tr {
+    width: 100%;
+}
+
+td {
+    width: 25%;
+}
+.actions {
+    float: right;
+}
+
+.popup-background {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.popup {
+    position: fixed;
+    width: 60%;
+    height: 250px;
+    top: calc(50% - 125px);
+    left: 20%;
+    background-color: white;
+    z-index: 100;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup form {
+    width: fit-content;
+    height: 60px;
+}
+
+.popup form div, .popup form button {
+    margin-right: 20px;
+    float: left;
+    background-color: #404040;
+    border-radius: 10px;
+    color: white;
+    height: 40px;
+    padding: 0px 10px 0px 10px;
+}
+
+.import-header {
+    width: 100%;
+    height: 70px;
+}
+
+.import-content {
+    width: 100%;
+    height: calc(100% - 70px);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.import form {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.import input, .import select, .import label {
+    width: calc(50% - 20px);
+    margin: 10px;
+    float: left;
+}
+
+.import input, .import select {
+    height: 50px;
+    font-size: 20px;
+    padding: 0px 5px 0px 5px;
+}
+
+.import select option {
+    font-size: 10px;
 }

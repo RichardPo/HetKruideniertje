@@ -1,9 +1,27 @@
 <?php 
 
     include "includes/header.inc.php";
-    
+
     if(!isset($_SESSION["user"])) {
         header("Location: login.php");
+    }
+
+    if(isset($_GET["barcode"])) {
+        $barcode = $_GET["barcode"];
+        $sql = "SELECT * FROM articles WHERE code='$barcode'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $product = ["id" => $row["id"], "name" => $row["name"], "description" => $row["description"], "price" => $row["price"]];
+
+            if(!isset($_SESSION["products"])) {
+                $_SESSION["products"] = [];
+            }
+            array_push($_SESSION["products"], $product);
+
+        } else {
+            #Popup with search by product-name
+        }
     }
     
 ?>
@@ -49,27 +67,40 @@
     <div class="block-main">
         <div class="block-content">
             <div class="products">
-                <div class="product">
-                    <div class="product-header">
-                        <div class="product-name">Appels</div>
-                        <div class="product-price">€2,99</div>
-                    </div>
-                    <div class="product-description">Heerlijke sappige appels uit het zomerseizoen bla bla bla (weet ik veel)</div>
-                </div>
+                <?php
+                    $price = 0;
+                    if(isset($_SESSION["products"])) {
+                        foreach($_SESSION["products"] as $product) {
+                            echo "
+                                <div class='product'>
+                                    <div class='product-header'>
+                                        <div class='product-name'>" . $product["name"] . "</div>
+                                        <div class='product-price'>€" . $product["price"] . "</div>
+                                    </div>
+                                    <div class='product-description'>" . $product["description"] . "</div>
+                                </div>
+                            ";
+
+                            $price += floatval($product["price"]);
+                        }
+                    } else {
+                        echo "Geen producten toegevoegd.";
+                    }
+                ?>
             </div>
 
             <div class="submit center">
-                <div class="afrekenen center">Afrekenen</div>
+                <div class="afrekenen center" onclick="location.href = 'bon.php';">Afrekenen</div>
             </div>
 
             <div class="price-total">
                 <div class="price">
                     Prijs inclusief BTW<br>
-                    <span class="big">€350,50</span>
+                    <span class="big"><?= $price ?></span>
                 </div>
                 <div class="price">
                     Prijs exclusief BTW<br>
-                    <span class="big">310,15</span>
+                    <span class="big"><?= number_format($price / 1.21, 2) ?></span>
                 </div>
             </div>
         </div>
