@@ -28,7 +28,7 @@
                     $_SESSION["user"]["username"] = $row["username"];
                     $_SESSION["user"]["name"] = $row["name"];
                     $_SESSION["user"]["role"] = $row["role"];
-                    header("Location: login.php");
+                    header("Location: index.php");
                     exit();
                 } else {
                     $message = "De gebruikersnaam en het wachtwoord komen niet overeen. Probeer het nog een keer.";
