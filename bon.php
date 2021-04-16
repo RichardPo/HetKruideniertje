@@ -4,6 +4,7 @@
 
     if(!isset($_SESSION["user"]) || !isset($_SESSION["products"])) {
         header("Location: kassa.php");
+        exit();
     }
 
     $bonProducts = [];

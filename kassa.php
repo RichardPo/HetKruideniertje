@@ -4,9 +4,25 @@
 
     if(!isset($_SESSION["user"])) {
         header("Location: login.php");
+        exit();
     }
 
-    if(isset($_GET["barcode"])) {
+    if(isset($_GET["productname"])) {
+        $name = $_GET["productname"];
+        $sql = "SELECT * FROM articles WHERE name='$name'";
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $product = ["id" => $row["id"], "name" => $row["name"], "description" => $row["description"], "price" => $row["price"]];
+
+            if(!isset($_SESSION["products"])) {
+                $_SESSION["products"] = [];
+            }
+            array_push($_SESSION["products"], $product);
+        } else {
+            header("Location: kassa.php?wrongPopup");
+        }
+    } else if(isset($_GET["barcode"])) {
         $barcode = $_GET["barcode"];
         $sql = "SELECT * FROM articles WHERE code='$barcode'";
         $result = mysqli_query($conn, $sql);
@@ -18,9 +34,8 @@
                 $_SESSION["products"] = [];
             }
             array_push($_SESSION["products"], $product);
-
         } else {
-            #Popup with search by product-name
+            header("Location: kassa.php?popup");
         }
     }
     
@@ -37,7 +52,7 @@
     <div class="block-main">
         <div class="block-content">
             <form>
-                <input type="text" name="barcode" readonly="true" placeholder="Barcode..." id="barcode"/>
+                <input type="number" name="barcode" readonly="true" placeholder="Barcode..." id="barcode"/>
                 <div class="numpad-wrapper center">
                     <div class="numpad">
                         <div onclick="AddInput(this)">1</div>
@@ -49,9 +64,9 @@
                         <div onclick="AddInput(this)">7</div>
                         <div onclick="AddInput(this)">8</div>
                         <div onclick="AddInput(this)">9</div>
-                        <div class="hidden"></div>
+                        <div onclick="Clear()">C</div>
                         <div onclick="AddInput(this)">0</div>
-                        <div class="hidden"></div>
+                        <div onclick="Backspace()"><i class="fas fa-backspace"></i></div>
                     </div>
                 </div>
                 <input type="submit" value="Product toevoegen"/>
@@ -107,11 +122,39 @@
             </div>
         </div>
     </div>
+
+    <?php
+        if(isset($_GET["popup"])) {
+            echo "
+                <div class='popup-background'></div>
+                <div class='popup'>
+                    <h2>Op naam zoeken</h2>
+                    Wilt u producten zoeken op naam?<br><br>
+                    <form method='get'>
+                        <input type='text' name='productname'/><br><br>
+                        <button type='submit' name='search'>Ja</button>
+                        <div onclick='location.href=\"kassa.php\"' class='center'>Nee</div>
+                    </form>
+                </div>
+            ";
+        }
+    ?>
+
 </div>
 
 <script>
     function AddInput(elem) {
         document.querySelector("#barcode").value += elem.innerHTML;
+    }
+
+    function Backspace() {
+        var value = document.querySelector("#barcode").value;
+        value = value.substr(0, value.length - 1);
+        document.querySelector("#barcode").value = value;
+    }
+
+    function Clear() {
+        document.querySelector("#barcode").value = "";
     }
 </script>
 

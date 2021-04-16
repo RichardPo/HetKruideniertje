@@ -5,9 +5,11 @@
     if(isset($_SESSION["user"])) {
         if($_SESSION["user"]["role"] != "admin") {
             header("Location: kassa.php");
+            exit();
         }
     } else {
         header("Location: login.php");
+        exit();
     }
 
     $message = "";
@@ -43,21 +45,25 @@
 
 <div class="beheer-main">
     <div class="beheer-sidebar">
-        <div class="sidebar-item" onclick="location.href = 'logout.php';">
+        <div class="sidebar-item center-vertical" onclick="location.href = 'logout.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-user-circle"></i></div>
             <div class="sidebar-item-text">Uitloggen</div>
         </div>
-        <div class="sidebar-item" onclick="location.href = 'voorraad.php';">
+        <div class="sidebar-item center-vertical" onclick="location.href = 'voorraad.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-cubes"></i></div>
             <div class="sidebar-item-text">Voorraad</div>
         </div>
-        <div class="sidebar-item" onclick="location.href = 'team.php';">
+        <div class="sidebar-item center-vertical" onclick="location.href = 'team.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-users"></i></div>
             <div class="sidebar-item-text">Team</div>
         </div>
-        <div class="sidebar-item" onclick="location.href = 'kassa.php';">
+        <div class="sidebar-item center-vertical" onclick="location.href = 'kassa.php';">
             <div class="sidebar-item-icon center"><i class="fas fa-cash-register"></i></div>
             <div class="sidebar-item-text">Kassa</div>
+        </div>
+        <div class="sidebar-item center-vertical" onclick="location.href = 'camera.php';">
+            <div class="sidebar-item-icon center"><i class="fas fa-camera"></i></div>
+            <div class="sidebar-item-text">Camera</div>
         </div>
     </div>
     <div class="beheer-content">
@@ -79,14 +85,14 @@
             ?>
         </div>
 
-        <div class="import" style="height: 260px;">
+        <div class="import">
             <div class="import-header center"><b>Gebruikers aanmaken</b></div>
             <div class="import-content center">
                 <form method="post">
                     <label>Gebruikersnaam:</label>
                     <input type="text" name="username"/>
-                    <label>Naam:</label><br>
-                    <input type="text" name="name"/><br><br>
+                    <label>Naam:</label>
+                    <input type="text" name="name"/>
                     <label>Rol:</label>
                     <select name="role">
                         <option value="cashier">Kassamedewerker</option>
